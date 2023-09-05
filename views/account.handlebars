@@ -1,0 +1,19 @@
+<h1>Dashboard</h1>
+
+<div class="dashboard">
+    {{#each blogposts as |blogPost|}}
+    <div class="col-md-4 post">
+        <div class="row post-header">
+            <h2>
+                <a href="/edit/{{blogPost.id}}">{{blogPost.title}}</a>
+            </h2>
+
+            <p>This post was done by {{blogPost.user.name}} on {{format_date blogPost.date_created}}</p>
+        </div>
+    </div>
+    {{/each}}
+
+    <div class="newPost">
+        <a href="/create" class="btn">+ New Post</a>
+    </div>
+</div>

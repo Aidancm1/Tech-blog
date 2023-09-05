@@ -1,0 +1,35 @@
+<div class="row post">
+    <div class="col post-header">
+
+        <h2 class="post-title">
+            <a href="/blogPost/{{id}}">{{title}}</a>
+        </h2>
+        <p>This post is by {{user.username}} on {{format_date date_created}}</p>
+    </div>
+
+    <p class="blogpost-content">
+        {{content}}
+    </p>
+</div>
+
+{{comment-details}}
+
+{{#if logged_in}}
+<div clas="row comment-form">
+    <form class="form addComment-form" data-id="{{id}}">
+        <div class="form-group">
+            <label for="comment">Comment</label>
+        </div>
+
+        <div class="form-group">
+            <textarea class="form-input" type="text" rows="3" id="content" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit" id="submit-comment">Submit</button>
+        </div>
+    </form>
+</div>
+{{/if}}
+
+<script src="../js/blogPost.js"></script>
