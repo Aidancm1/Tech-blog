@@ -1,0 +1,9 @@
+body {
+    background-color: bisque;
+}
+nav a{
+    background-color: blue;
+    color: bisque;
+    padding: 2px;
+}
+#logout
