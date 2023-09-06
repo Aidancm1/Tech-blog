@@ -6,4 +6,15 @@ nav a{
     color: bisque;
     padding: 2px;
 }
-#logout
+#logout {
+    background-color: black;
+    color: bisque;
+    border: none;
+    text-decoration: none;
+    padding: 5px;
+}
+
+#logout:hover{
+    color: white;
+    text-decoration: none;
+}
