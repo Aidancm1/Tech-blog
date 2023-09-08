@@ -3,34 +3,30 @@ const { User, Post, Comment } = require('../models');
 const withAuth = require('../utils/auth');
 const sequelize = require('../config/connection');
 // all account posts
-router.get('/', withAuth, (req, res) => {
-    Post.findAll({
-        where: {
-            userId: req.session.userId
-        },
-        attributes: ['id', 'content', 'title', 'created'],
-        order: [['created', 'DESC']],
+router.get('/',withAuth, async (req, res) => {
+    try {
+      // Get all posts and JOIN with user data
+      const postData = await Post.findAll({
         include: [
-            {
-                model: Comment,
-                attributes: ['id', 'comment', 'userId', 'postId', 'created'],
-                include: {
-                    model: User,
-                    attributes: ['username'],
-                },
-            },
-            {
-                model: User,
-                attributes: ['username'],
-            },
+          {
+            model: User,
+            attributes: ['name'],
+          },
         ],
-    })
-}) .then((dbPostData) => {
-    const posts = dbPostData.map((post) => post.get({ plain: true }));
-    res.render('dashboard', { posts, loggedIn: true, username: req.session.username});
-}) .catch((err) => {
-    res.status(500).json(err);
-});
+      });
+  
+      // Serialize data so the template can read it
+      const posts = postData.map((post) => post.get({ plain: true }));
+  
+      // Pass serialized data and session flag into template
+      res.render('account', { 
+        posts, 
+        logged_in: req.session.logged_in 
+      });
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
 // get one post to update
 router.get('/edit/:id', withAuth, (req, res) => {
     Post.findOne({
